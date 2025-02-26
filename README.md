@@ -7,9 +7,6 @@
   <img src="demo/Visual_ImageNet.png" width="720">
 </p>
 
-<p align="center">
-  <img src="demo/FAR_framework.png" width="720">
-</p>
 
 ## 📰 News
 
@@ -70,6 +67,11 @@ main_cache.py \
 --data_path ${IMAGENET_PATH} --cached_path ${CACHED_PATH}
 ```
 
+
+## FAR Framework
+<p align="center">
+  <img src="demo/FAR_framework.png" width="720">
+</p>
 
 
 
