@@ -11,14 +11,7 @@
 
 This is a PyTorch/GPU implementation of the paper [Autoregressive Image Generation without Vector Quantization](https://arxiv.org/abs/2406.11838) (Neurips 2024 Spotlight Presentation):
 
-```
-@article{li2024autoregressive,
-  title={Autoregressive Image Generation without Vector Quantization},
-  author={Li, Tianhong and Tian, Yonglong and Li, He and Deng, Mingyang and He, Kaiming},
-  journal={arXiv preprint arXiv:2406.11838},
-  year={2024}
-}
-```
+
 
 This repo contains:
 
@@ -158,3 +151,12 @@ A large portion of codes in this repo is based on [MAE](https://github.com/faceb
 
 If you have any questions, feel free to contact me through email (tianhong@mit.edu). Enjoy!
 
+## Citation
+```
+@article{li2024autoregressive,
+  title={Autoregressive Image Generation without Vector Quantization},
+  author={Li, Tianhong and Tian, Yonglong and Li, He and Deng, Mingyang and He, Kaiming},
+  journal={arXiv preprint arXiv:2406.11838},
+  year={2024}
+}
+```
