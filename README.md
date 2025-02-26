@@ -1,15 +1,11 @@
 # Autoregressive Image Generation without Vector Quantization <br><sub>Official PyTorch Implementation</sub>
 
 [![arXiv](https://img.shields.io/badge/arXiv%20paper-2406.11838-b31b1b.svg)](https://arxiv.org/abs/2406.11838)&nbsp;
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/autoregressive-image-generation-without/image-generation-on-imagenet-256x256)](https://paperswithcode.com/sota/image-generation-on-imagenet-256x256?p=autoregressive-image-generation-without)
-[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](http://colab.research.google.com/github/LTH14/mar/blob/main/demo/run_mar.ipynb)
-[![huggingface](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-mar-yellow)](https://huggingface.co/jadechoghari/mar)&nbsp;
+[![huggingface](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-mar-yellow)]([https://huggingface.co/jadechoghari/mar](https://huggingface.co/figereatfish/FAR))&nbsp;
 
 <p align="center">
   <img src="demo/Visual_ImageNet.png" width="720">
 </p>
-
-This is a PyTorch/GPU implementation of the paper [Autoregressive Image Generation without Vector Quantization](https://arxiv.org/abs/2406.11838) (Neurips 2024 Spotlight Presentation):
 
 
 
@@ -30,15 +26,15 @@ Download [ImageNet](http://image-net.org/download) dataset, and place it in your
 
 Download the code:
 ```
-git clone https://github.com/LTH14/mar.git
+git clone https://github.com/yuhuUSTC/FAR.git
 cd mar
 ```
 
-A suitable [conda](https://conda.io/) environment named `mar` can be created and activated with:
+A suitable [conda](https://conda.io/) environment named `far` can be created and activated with:
 
 ```
 conda env create -f environment.yaml
-conda activate mar
+conda activate far
 ```
 
 Download pre-trained VAE and MAR models:
