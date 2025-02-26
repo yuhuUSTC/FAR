@@ -17,9 +17,6 @@
 
 ## Preparation
 
-### Dataset
-Download [ImageNet](http://image-net.org/download) dataset, and place it in your `IMAGENET_PATH`.
-
 ### Installation
 
 Download the code:
@@ -35,19 +32,23 @@ conda env create -f environment.yaml
 conda activate far
 ```
 
-Download pre-trained VAE and MAR models:
+### Dataset
+Download [ImageNet](http://image-net.org/download) dataset, and place it in your `IMAGENET_PATH`.
 
-```
-python util/download.py
-```
+
+### Pretrained Weights
+Download pre-trained [VAE](https://huggingface.co/figereatfish/FAR/tree/main/vae), and place it in `/pretrained/vae/`.
+Download [.npz](https://huggingface.co/figereatfish/FAR/tree/main/fid_stats) of ImageNet 256x256 for calculating the FID metric, and place it in `/fid_stats/`.
+Download the weights of [FAR](https://huggingface.co/figereatfish/FAR/tree/main), and place it in `/pretrained_models/far/`.
+
 
 For convenience, our pre-trained MAR models can be downloaded directly here as well:
 
 | MAR Model                                                              | FID-50K | Inception Score | #params | 
 |------------------------------------------------------------------------|---------|-----------------|---------|
-| [MAR-B](https://www.dropbox.com/scl/fi/f6dpuyjb7fudzxcyhvrhk/checkpoint-last.pth?rlkey=a6i4bo71vhfo4anp33n9ukujb&dl=0) | 2.31    | 281.7           | 208M    |
-| [MAR-L](https://www.dropbox.com/scl/fi/pxacc5b2mrt3ifw4cah6k/checkpoint-last.pth?rlkey=m48ovo6g7ivcbosrbdaz0ehqt&dl=0) | 1.78    | 296.0           | 479M    |
-| [MAR-H](https://www.dropbox.com/scl/fi/1qmfx6fpy3k7j9vcjjs3s/checkpoint-last.pth?rlkey=4lae281yzxb406atp32vzc83o&dl=0) | 1.55    | 303.7           | 943M    |
+| [FAR-B]([https://www.dropbox.com/scl/fi/f6dpuyjb7fudzxcyhvrhk/checkpoint-last.pth?rlkey=a6i4bo71vhfo4anp33n9ukujb&dl=0](https://huggingface.co/figereatfish/FAR/tree/main)) | 4.83    | 247.4           | 208M    |
+| [FAR-L]([https://www.dropbox.com/scl/fi/pxacc5b2mrt3ifw4cah6k/checkpoint-last.pth?rlkey=m48ovo6g7ivcbosrbdaz0ehqt&dl=0](https://huggingface.co/figereatfish/FAR/tree/main)) | 3.92    | 288.9           | 451M    |
+| [FAR-H]([https://www.dropbox.com/scl/fi/1qmfx6fpy3k7j9vcjjs3s/checkpoint-last.pth?rlkey=4lae281yzxb406atp32vzc83o&dl=0](https://huggingface.co/figereatfish/FAR/tree/main)) | 3.71    | 304.9           | 812M    |
 
 ### (Optional) Caching VAE Latents
 
@@ -61,18 +62,6 @@ main_cache.py \
 --batch_size 128 \
 --data_path ${IMAGENET_PATH} --cached_path ${CACHED_PATH}
 ```
-
-## Usage
-
-### Demo
-Run our interactive visualization [demo](http://colab.research.google.com/github/LTH14/mar/blob/main/demo/run_mar.ipynb) using Colab notebook!
-
-### Local Gradio App
-
-```
-python demo/gradio_app.py 
-```
-
 
 
 ### Training
