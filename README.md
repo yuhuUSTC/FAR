@@ -66,64 +66,47 @@ main_cache.py \
 ```
 
 
-### Training
-Script for the default setting (MAR-L, DiffLoss MLP with 3 blocks and a width of 1024 channels, 400 epochs):
+## Training
+Run the following command, which contains the scripts for training various model size (FAR-B, FAR-L, FAR-H).
+```
+bash train.sh
+```
+
+Specifically, take the default script for FAR-L for example:
 ```
 torchrun --nproc_per_node=8 --nnodes=4 --node_rank=${NODE_RANK} --master_addr=${MASTER_ADDR} --master_port=${MASTER_PORT} \
-main_mar.py \
+main_far.py \
 --img_size 256 --vae_path pretrained_models/vae/kl16.ckpt --vae_embed_dim 16 --vae_stride 16 --patch_size 1 \
---model mar_large --diffloss_d 3 --diffloss_w 1024 \
+--model far_large --diffloss_d 3 --diffloss_w 1024 \
 --epochs 400 --warmup_epochs 100 --batch_size 64 --blr 1.0e-4 --diffusion_batch_mul 4 \
 --output_dir ${OUTPUT_DIR} --resume ${OUTPUT_DIR} \
 --data_path ${IMAGENET_PATH}
 ```
-- Training time is ~1d7h on 32 H100 GPUs with `--batch_size 64`.
-- Add `--online_eval` to evaluate FID during training (every 40 epochs).
+- (Optional) Add `--online_eval` to evaluate FID during training (every 40 epochs).
+- (Optional) To enable uneven loss weight strategy, add `--loss_weight` to the arguments. 
 - (Optional) To train with cached VAE latents, add `--use_cached --cached_path ${CACHED_PATH}` to the arguments. 
-Training time with cached latents is ~1d11h on 16 H100 GPUs with `--batch_size 128` (nearly 2x faster than without caching).
-- (Optional) To save GPU memory during training by using gradient checkpointing (thanks to @Jiawei-Yang), add `--grad_checkpointing` to the arguments. 
-Note that this may slightly reduce training speed.
 
-### Evaluation (ImageNet 256x256)
 
-Evaluate MAR-B (DiffLoss MLP with 6 blocks and a width of 1024 channels, 800 epochs) with classifier-free guidance:
+## Evaluation (ImageNet 256x256)
+Run the following command, which contains the scripts for the inference of various model size (FAR-B, FAR-L, FAR-H).
 ```
-torchrun --nproc_per_node=8 --nnodes=1 --node_rank=0 \
-main_mar.py \
---model mar_base --diffloss_d 6 --diffloss_w 1024 \
---eval_bsz 256 --num_images 50000 \
---num_iter 256 --num_sampling_steps 100 --cfg 2.9 --cfg_schedule linear --temperature 1.0 \
---output_dir pretrained_models/mar/mar_base \
---resume pretrained_models/mar/mar_base \
+bash samle.sh
+```
+
+Specifically, take the default inference script for FAR-L for example:
+```
+torchrun --nnodes=1 --nproc_per_node=1  main_far.py \
+--img_size 256 --vae_path pretrained/vae_mar/kl16.ckpt --vae_embed_dim 16 --vae_stride 16 --patch_size 1 \
+--model far_large --diffloss_d 3 --diffloss_w 1024 \
+--eval_bsz 32 --num_images 1000 \
+--num_iter 10 --num_sampling_steps 100 --cfg 3.0 --cfg_schedule linear --temperature 1.0 \
+--output_dir pretrained_models/far/far_large \
+--resume pretrained_models/far/far_large \
 --data_path ${IMAGENET_PATH} --evaluate
 ```
-
-Evaluate MAR-L (DiffLoss MLP with 8 blocks and a width of 1280 channels, 800 epochs) with classifier-free guidance:
-```
-torchrun --nproc_per_node=8 --nnodes=1 --node_rank=0 \
-main_mar.py \
---model mar_large --diffloss_d 8 --diffloss_w 1280 \
---eval_bsz 256 --num_images 50000 \
---num_iter 256 --num_sampling_steps 100 --cfg 3.0 --cfg_schedule linear --temperature 1.0 \
---output_dir pretrained_models/mar/mar_large \
---resume pretrained_models/mar/mar_large \
---data_path ${IMAGENET_PATH} --evaluate
-```
-
-Evaluate MAR-H (DiffLoss MLP with 12 blocks and a width of 1536 channels, 800 epochs) with classifier-free guidance:
-```
-torchrun --nproc_per_node=8 --nnodes=1 --node_rank=0 \
-main_mar.py \
---model mar_huge --diffloss_d 12 --diffloss_w 1536 \
---eval_bsz 128 --num_images 50000 \
---num_iter 256 --num_sampling_steps 100 --cfg 3.2 --cfg_schedule linear --temperature 1.0 \
---output_dir pretrained_models/mar/mar_huge \
---resume pretrained_models/mar/mar_huge \
---data_path ${IMAGENET_PATH} --evaluate
-```
-
-- Set `--cfg 1.0 --temperature 0.95` to evaluate without classifier-free guidance.
-- Generation speed can be significantly increased by reducing the number of autoregressive iterations (e.g., `--num_iter 64`).
+- Add `--mask` to increase the generation diversity.
+- We adopt 10 autoregressive steps by default.
+- Generation speed can be further increased by reducing the number of diffusion steps (e.g., `--num_sampling_steps 50`).
 
 ## Acknowledgements
 
