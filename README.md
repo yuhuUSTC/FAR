@@ -42,7 +42,9 @@ Download pre-trained [VAE](https://huggingface.co/figereatfish/FAR/tree/main/vae
 Download [.npz](https://huggingface.co/figereatfish/FAR/tree/main/fid_stats) of ImageNet 256x256 for calculating the FID metric, and place it in `/fid_stats/`.
 
 Download the weights of [FAR_B](https://huggingface.co/figereatfish/FAR/tree/main), and place it in `/pretrained_models/far/far_base/`.
+
 Download the weights of [FAR_L](https://huggingface.co/figereatfish/FAR/tree/main), and place it in `/pretrained_models/far/far_large/`.
+
 Download the weights of [FAR_H](https://huggingface.co/figereatfish/FAR/tree/main), and place it in `/pretrained_models/far/far_huge/`.
 
 For convenience, our pre-trained MAR models can be downloaded directly here as well:
