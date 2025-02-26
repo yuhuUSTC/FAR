@@ -22,7 +22,7 @@
 Download the code:
 ```
 git clone https://github.com/yuhuUSTC/FAR.git
-cd mar
+cd FAR
 ```
 
 A suitable [conda](https://conda.io/) environment named `far` can be created and activated with:
