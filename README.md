@@ -7,7 +7,9 @@
   <img src="demo/Visual_ImageNet.png" width="720">
 </p>
 
-
+<p align="center">
+  <img src="demo/FAR_framework.png" width="720">
+</p>
 
 ## 📰 News
 
