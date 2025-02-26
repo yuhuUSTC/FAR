@@ -129,11 +129,4 @@ A large portion of codes in this repo is based on [MAE](https://github.com/faceb
 If you have any questions, feel free to contact me through email (yuhu520@mail.ustc.edu.cn). Enjoy!
 
 ## Citation
-```
-@article{li2024autoregressive,
-  title={Autoregressive Image Generation without Vector Quantization},
-  author={Li, Tianhong and Tian, Yonglong and Li, He and Deng, Mingyang and He, Kaiming},
-  journal={arXiv preprint arXiv:2406.11838},
-  year={2024}
-}
-```
+
