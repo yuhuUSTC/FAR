@@ -41,16 +41,17 @@ Download pre-trained [VAE](https://huggingface.co/figereatfish/FAR/tree/main/vae
 
 Download [.npz](https://huggingface.co/figereatfish/FAR/tree/main/fid_stats) of ImageNet 256x256 for calculating the FID metric, and place it in `/fid_stats/`.
 
-Download the weights of [FAR](https://huggingface.co/figereatfish/FAR/tree/main), and place it in `/pretrained_models/far/`.
-
+Download the weights of [FAR_B](https://huggingface.co/figereatfish/FAR/tree/main), and place it in `/pretrained_models/far/far_base/`.
+Download the weights of [FAR_L](https://huggingface.co/figereatfish/FAR/tree/main), and place it in `/pretrained_models/far/far_large/`.
+Download the weights of [FAR_H](https://huggingface.co/figereatfish/FAR/tree/main), and place it in `/pretrained_models/far/far_huge/`.
 
 For convenience, our pre-trained MAR models can be downloaded directly here as well:
 
 | MAR Model                                                              | FID-50K | Inception Score | #params | 
 |------------------------------------------------------------------------|---------|-----------------|---------|
-| [FAR-B]([https://www.dropbox.com/scl/fi/f6dpuyjb7fudzxcyhvrhk/checkpoint-last.pth?rlkey=a6i4bo71vhfo4anp33n9ukujb&dl=0](https://huggingface.co/figereatfish/FAR/tree/main)) | 4.83    | 247.4           | 208M    |
-| [FAR-L]([https://www.dropbox.com/scl/fi/pxacc5b2mrt3ifw4cah6k/checkpoint-last.pth?rlkey=m48ovo6g7ivcbosrbdaz0ehqt&dl=0](https://huggingface.co/figereatfish/FAR/tree/main)) | 3.92    | 288.9           | 451M    |
-| [FAR-H]([https://www.dropbox.com/scl/fi/1qmfx6fpy3k7j9vcjjs3s/checkpoint-last.pth?rlkey=4lae281yzxb406atp32vzc83o&dl=0](https://huggingface.co/figereatfish/FAR/tree/main)) | 3.71    | 304.9           | 812M    |
+| [FAR-B](https://huggingface.co/figereatfish/FAR/tree/main) | 4.83    | 247.4           | 208M    |
+| [FAR-L](https://huggingface.co/figereatfish/FAR/tree/main) | 3.92    | 288.9           | 451M    |
+| [FAR-H](https://huggingface.co/figereatfish/FAR/tree/main) | 3.71    | 304.9           | 812M    |
 
 ### (Optional) Caching VAE Latents
 
@@ -64,6 +65,8 @@ main_cache.py \
 --batch_size 128 \
 --data_path ${IMAGENET_PATH} --cached_path ${CACHED_PATH}
 ```
+
+
 
 
 ## Training
@@ -85,6 +88,9 @@ main_far.py \
 - (Optional) Add `--online_eval` to evaluate FID during training (every 40 epochs).
 - (Optional) To enable uneven loss weight strategy, add `--loss_weight` to the arguments. 
 - (Optional) To train with cached VAE latents, add `--use_cached --cached_path ${CACHED_PATH}` to the arguments. 
+
+
+
 
 
 ## Evaluation (ImageNet 256x256)
