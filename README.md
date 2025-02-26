@@ -38,7 +38,9 @@ Download [ImageNet](http://image-net.org/download) dataset, and place it in your
 
 ### Pretrained Weights
 Download pre-trained [VAE](https://huggingface.co/figereatfish/FAR/tree/main/vae), and place it in `/pretrained/vae/`.
+
 Download [.npz](https://huggingface.co/figereatfish/FAR/tree/main/fid_stats) of ImageNet 256x256 for calculating the FID metric, and place it in `/fid_stats/`.
+
 Download the weights of [FAR](https://huggingface.co/figereatfish/FAR/tree/main), and place it in `/pretrained_models/far/`.
 
 
