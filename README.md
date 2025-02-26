@@ -141,15 +141,12 @@ main_mar.py \
 - Generation speed can be significantly increased by reducing the number of autoregressive iterations (e.g., `--num_iter 64`).
 
 ## Acknowledgements
-We thank Congyue Deng and Xinlei Chen for helpful discussion. We thank
-Google TPU Research Cloud (TRC) for granting us access to TPUs, and Google Cloud Platform for
-supporting GPU resources.
 
-A large portion of codes in this repo is based on [MAE](https://github.com/facebookresearch/mae), [MAGE](https://github.com/LTH14/mage) and [DiT](https://github.com/facebookresearch/DiT).
+A large portion of codes in this repo is based on [MAE](https://github.com/facebookresearch/mae), and [MAR](https://github.com/LTH14/mar). Thanks for these great work and open source。
 
 ## Contact
 
-If you have any questions, feel free to contact me through email (tianhong@mit.edu). Enjoy!
+If you have any questions, feel free to contact me through email (yuhu520@mail.ustc.edu.cn). Enjoy!
 
 ## Citation
 ```
