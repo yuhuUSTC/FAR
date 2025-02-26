@@ -21,6 +21,8 @@ from models import far
 from engine_far import train_one_epoch, evaluate
 import copy
 
+
+    
 def get_args_parser():
     parser = argparse.ArgumentParser('FAR training with Diffusion Loss', add_help=False)
     parser.add_argument('--batch_size', default=16, type=int,
