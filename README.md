@@ -46,6 +46,8 @@ Download the weights of [FAR_L](https://huggingface.co/figereatfish/FAR/tree/mai
 
 Download the weights of [FAR_H](https://huggingface.co/figereatfish/FAR/tree/main), and place it in `/pretrained_models/far/far_huge/`.
 
+Download the weights of [FAR_T2I](https://huggingface.co/figereatfish/FAR_T2I), and place it in `pretrained_models/far/far_t2i/`.
+
 For convenience, our pre-trained MAR models can be downloaded directly here as well:
 
 | MAR Model                                                              | FID-50K | Inception Score | #params | 
@@ -75,7 +77,7 @@ main_cache.py \
 
 
 
-## Training
+## Training (ImageNet 256x256)
 Run the following command, which contains the scripts for training various model size (FAR-B, FAR-L, FAR-H).
 ```
 bash train.sh
@@ -107,7 +109,7 @@ bash samle.sh
 
 Specifically, take the default inference script for FAR-L for example:
 ```
-torchrun --nnodes=1 --nproc_per_node=1  main_far.py \
+torchrun --nnodes=1 --nproc_per_node=8  main_far.py \
 --img_size 256 --vae_path pretrained/vae_mar/kl16.ckpt --vae_embed_dim 16 --vae_stride 16 --patch_size 1 \
 --model far_large --diffloss_d 3 --diffloss_w 1024 \
 --eval_bsz 32 --num_images 1000 \
@@ -119,6 +121,41 @@ torchrun --nnodes=1 --nproc_per_node=1  main_far.py \
 - Add `--mask` to increase the generation diversity.
 - We adopt 10 autoregressive steps by default.
 - Generation speed can be further increased by reducing the number of diffusion steps (e.g., `--num_sampling_steps 50`).
+
+
+
+## Training (T2I)
+Script for the default setting:
+```
+torchrun --nproc_per_node=8 --nnodes=4 --node_rank=${NODE_RANK} --master_addr=${MASTER_ADDR} --master_port=${MASTER_PORT} \
+main_far_t2i.py \
+--img_size 256 --vae_path pretrained/vae_mar/kl16.ckpt --vae_embed_dim 16 --vae_stride 16 --patch_size 1 \
+--model far_t2i --diffloss_d 3 --diffloss_w 1024 \
+--epochs 400 --warmup_epochs 100 --batch_size 64 --blr 1.0e-4 --diffusion_batch_mul 4 \
+--output_dir ${OUTPUT_DIR} --resume ${OUTPUT_DIR} \
+--data_path ${T2I_PATH}
+```
+
+- The 'text encoder' employs [Qwen2-VL-1.5B](https://huggingface.co/mit-han-lab/Qwen2-VL-1.5B-Instruct/tree/main).
+- Replace `T2I_PATH` with the path to your Text-to-image dataset path.
+
+
+## Evaluation (T2I)
+Script for the default setting:
+```
+torchrun --nnodes=1 --nproc_per_node=8  main_far_t2i.py \
+--img_size 256 --vae_path pretrained/vae_mar/kl16.ckpt --vae_embed_dim 16 --vae_stride 16 --patch_size 1 \
+--model far_t2i --diffloss_d 3 --diffloss_w 1024 \
+--eval_bsz 32 --num_images 1000 \
+--num_iter 10 --num_sampling_steps 100 --cfg 3.0 --cfg_schedule linear --temperature 1.0 \
+--output_dir pretrained_models/far/far_t2i \
+--resume pretrained_models/far/far_t2i \
+--data_path ${T2I_PATH} --evaluate
+```
+- Add `--mask` to increase the generation diversity.
+- We adopt 10 autoregressive steps by default.
+- Generation speed can be further increased by reducing the number of diffusion steps (e.g., `--num_sampling_steps 50`).
+
 
 ## Acknowledgements
 
