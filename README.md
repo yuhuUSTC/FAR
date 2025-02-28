@@ -133,10 +133,11 @@ main_far_t2i.py \
 --model far_t2i --diffloss_d 3 --diffloss_w 1024 \
 --epochs 400 --warmup_epochs 100 --batch_size 64 --blr 1.0e-4 --diffusion_batch_mul 4 \
 --output_dir ${OUTPUT_DIR} --resume ${OUTPUT_DIR} \
+--text_model_path pretrained/Qwen2-VL-1.5B-Instruct  \
 --data_path ${T2I_PATH}
 ```
 
-- The 'text encoder' employs [Qwen2-VL-1.5B](https://huggingface.co/mit-han-lab/Qwen2-VL-1.5B-Instruct/tree/main).
+- The `text encoder` employs [Qwen2-VL-1.5B](https://huggingface.co/mit-han-lab/Qwen2-VL-1.5B-Instruct/tree/main), download it and place it in your `pretrained/Qwen2-VL-1.5B-Instruct/`.
 - Replace `T2I_PATH` with the path to your Text-to-image dataset path.
 
 
@@ -150,6 +151,7 @@ torchrun --nnodes=1 --nproc_per_node=8  main_far_t2i.py \
 --num_iter 10 --num_sampling_steps 100 --cfg 3.0 --cfg_schedule linear --temperature 1.0 \
 --output_dir pretrained_models/far/far_t2i \
 --resume pretrained_models/far/far_t2i \
+--text_model_path pretrained/Qwen2-VL-1.5B-Instruct  \
 --data_path ${T2I_PATH} --evaluate
 ```
 - Add `--mask` to increase the generation diversity.
