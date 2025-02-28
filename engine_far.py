@@ -85,7 +85,7 @@ def train_one_epoch(model, vae,
 
         # forward
         with torch.cuda.amp.autocast():
-            loss = model(epoch, vae, x, labels, loss_weight=args.loss_weight)
+            loss = model(x, labels, loss_weight=args.loss_weight)
         loss_value = loss.item()
 
         if not math.isfinite(loss_value):
