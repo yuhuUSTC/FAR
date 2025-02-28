@@ -71,7 +71,7 @@ class FAR_T2I(nn.Module):
         self.seq_h = self.seq_w = img_size // vae_stride // patch_size
         self.seq_len = self.seq_h * self.seq_w
         self.token_embed_dim = vae_embed_dim * patch_size**2
-        self.loss_weight = [1.0, 2.0, 2.2, 2.3, 2.44, 2.56, 2.68, 2.77, 2.80, 2.83, 2.86, 2.89, 2.92, 2.95, 2.98, 3.0]
+        self.loss_weight = [1 + np.sin(math.pi / 2. * (bands + 1) / self.seq_h) for bands in range(self.seq_h)]
 
         # --------------------------------------------------------------------------
         # Class Embedding
