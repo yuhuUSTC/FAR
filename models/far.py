@@ -279,7 +279,7 @@ class FAR(nn.Module):
 
 
 
-    def forward(self, epoch, vae, imgs, labels, loss_weight=False):
+    def forward(self, imgs, labels, loss_weight=False):
         class_embedding = self.class_emb(labels)
         
         process_imgs, x_index = self.processingpregt_latent(imgs)
