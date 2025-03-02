@@ -182,10 +182,12 @@ class FAR(nn.Module):
         orders = torch.Tensor(np.array(orders)).cuda().long()
         return orders
 
-    def random_masking(self, x, orders):
+    def random_masking(self, x, orders, x_index):
         # generate token mask
         bsz, seq_len, embed_dim = x.shape
-        mask_rate = self.mask_ratio_generator.rvs(1)[0]
+        stage = x_index[0]
+        mask_ratio_min = 0.7 * stage / 16
+        mask_rate = stats.truncnorm((mask_ratio_min - 1.0) / 0.25, 0, loc=1.0, scale=0.25).rvs(1)[0]
         num_masked_tokens = int(np.ceil(seq_len * mask_rate))
         mask = torch.zeros(bsz, seq_len, device=x.device)
         mask = torch.scatter(mask, dim=-1, index=orders[:, :num_masked_tokens],
@@ -292,7 +294,7 @@ class FAR(nn.Module):
         mask = None
         if self.mask:
             orders = self.sample_orders(bsz=x.size(0))
-            mask = self.random_masking(x, orders)
+            mask = self.random_masking(x, orders, x_index)
 
         x = self.forward_mae_encoder(x, class_embedding, mask)
         z = self.forward_mae_decoder(x, mask)
