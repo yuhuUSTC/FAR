@@ -199,8 +199,8 @@ class FAR(nn.Module):
         latent_core = list(range(H))
         core_index = []
 
+        random_number = torch.randint(0, len(latent_core), (1,))
         for i in range(B):
-            random_number = torch.randint(0, len(latent_core), (1,))
             chosen_core = latent_core[random_number]
             core_index.append(chosen_core)
             if random_number == 0:
